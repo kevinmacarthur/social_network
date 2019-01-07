@@ -31,14 +31,6 @@ var data = {
   }
 };
 
-function printName(id) {
-  for (let person in data) {
-    if (person === id) {
-      return data[person].name
-    }
-  }
-}
-
 function findName(id) {
   for (let person in data) {
     if (person === id) {
@@ -47,17 +39,35 @@ function findName(id) {
   }
 }
 
-function printFollowerNames(id) {
+function findFollowerNames(id) {
+  let followerNames = []
   for (let person in data) {
     if (person === id) {
-      let followerNames = []
       data[person].follows.forEach(follower => {
         followerNames.push(findName(follower))
       })
-    console.log(`${printName(person)} follows: ${followerNames}`)
     }
+  }
+  return followerNames
+}
+
+function findFollowedBy(id) {
+  let followedBy = []
+  for (let person in data) {
+    data[person].follows.forEach(follower => {
+      if (follower === id) {
+        followedBy.push(data[person].name)
+      }
+    })
+  }
+  return followedBy
+}
+
+function printAllFollowers() {
+  for (let person in data) {
+    console.log(`${data[person].name} follows ${findFollowerNames(person)} AND is followed by: ${findFollowedBy(person)}`)
   }
 }
 
-printFollowerNames('f04')
-printFollowerNames('f03')
+
+printAllFollowers()
