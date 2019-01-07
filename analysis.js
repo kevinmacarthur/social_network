@@ -69,5 +69,37 @@ function printAllFollowers() {
   }
 }
 
+function findMostFollows() {
+  let mostFollowsName = ""
+  let mostFollows = 0
+  for (let person in data) {
+    if (findFollowerNames(person).length > mostFollows) {
+      mostFollows = data[person].follows.length
+      mostFollowsName = data[person].name
+    }
+  }
+  console.log(`${mostFollowsName} follows the most people (${mostFollows})`)
+}
 
-printAllFollowers()
+function findMostFollowers() {
+  let mostFollowers = 0
+  for (let person in data) {
+    if (findFollowedBy(person).length > mostFollowers) {
+      mostFollowers = findFollowedBy(person).length
+    }
+  }
+  return mostFollowers
+}
+
+function findMostFollowersName(num) {
+  let mostFollowers = []
+  for (let person in data) {
+    if (findFollowedBy(person).length === num) {
+      mostFollowers.push(data[person].name)
+    }
+  }
+  console.log(`${mostFollowers} have the most followers (${num})`)
+}
+
+findMostFollows()
+findMostFollowersName(findMostFollowers())
