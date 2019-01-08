@@ -123,18 +123,54 @@ function findMostFollowersName(num) {
 // findMostFollowersName(findMostFollowers())
 
 //OVER 30 CLEAN THIS UP
-function findFollowsOver30(id) {
-  let followerNames = []
+
+var array_helper = {
+    filter: function(list, filter)
+    {
+        var matches = [];
+        for(var x=0; x<list .length; x++)
+        {
+            if(filter(list[x]))
+                matches.push(list[x]);
+        }
+        return matches;
+    }
+};
+
+function over30Follows(id) {
+  let values = array_helper.filter(data[id].follows, function(item){
+  return findFollower(item).age > 30
+})
+  return values
+}
+
+function printNames(arr) {
+  arr.forEach(name => {
+    console.log(findFollower(name).name)
+  })
+}
+
+function followsMostPeopleOver30() {
+  let mostFollows = 0
   for (let person in data) {
-    if (person === id) {
-      data[person].follows.forEach(follower => {
-        if (findFollower(follower).age > 30)
-        followerNames.push(findFollower(follower).name)
-      })
+    if (over30Follows(person).length > mostFollows) {
+      mostFollows = over30Follows(person).length
     }
   }
-  return followerNames
+  return mostFollows
 }
+
+function followsMostPeopleNameOver30(num) {
+  let mostFollowers = []
+  for (let person in data) {
+    if (over30Follows(person).length === num) {
+      mostFollowers.push(data[person].name)
+    }
+  }
+  console.log(`${mostFollowers} follow the most people over 30 (${num})`)
+}
+
+followsMostPeopleNameOver30(followsMostPeopleOver30())
 
 function findFollowedByOver30(id) {
   let followedBy = []
@@ -147,28 +183,6 @@ function findFollowedByOver30(id) {
   }
   return followedBy
 }
-
-function followsMostPeopleOver30() {
-  let mostFollows = 0
-  for (let person in data) {
-    if (findFollowsOver30(person).length > mostFollows) {
-      mostFollows = findFollowsOver30(person).length
-    }
-  }
-  return mostFollows
-}
-
-function followsMostPeopleNameOver30(num) {
-  let mostFollowers = []
-  for (let person in data) {
-    if (findFollowsOver30(person).length === num) {
-      mostFollowers.push(data[person].name)
-    }
-  }
-  console.log(`${mostFollowers} follow the most people over 30 (${num})`)
-}
-
-// followsMostPeopleNameOver30(followsMostPeopleOver30())
 
 function findMostFollowersOver30() {
   let mostFollowers = 0
@@ -226,4 +240,4 @@ function notFollowedBack() {
   console.log(`${people} follow someone who doesn't follow them back`)
 }
 
-notFollowedBack()
+// notFollowedBack()
