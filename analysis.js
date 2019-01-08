@@ -122,7 +122,7 @@ function findMostFollowersName(num) {
 
 // findMostFollowersName(findMostFollowers())
 
-//OVER 30 CLEAN THIS UP
+//OVER 30 Added filter helper
 
 var array_helper = {
     filter: function(list, filter)
@@ -144,11 +144,11 @@ function over30Follows(id) {
   return values
 }
 
-function printNames(arr) {
-  arr.forEach(name => {
-    console.log(findFollower(name).name)
-  })
-}
+// function printNames(arr) {
+//   arr.forEach(name => {
+//     console.log(findFollower(name).name)
+//   })
+// }
 
 function followsMostPeopleOver30() {
   let mostFollows = 0
@@ -171,6 +171,13 @@ function followsMostPeopleNameOver30(num) {
 }
 
 followsMostPeopleNameOver30(followsMostPeopleOver30())
+
+function findFollowedByOver30(id) {
+  let values = array_helper.filter(data[id].follows, function(item){
+  return findFollower(item).age > 30
+})
+  return values
+}
 
 function findFollowedByOver30(id) {
   let followedBy = []
@@ -204,7 +211,7 @@ function findMostFollowersNameOver30(num) {
   console.log(`${mostFollowers} have the most followers over 30 (${num})`)
 }
 
-// findMostFollowersNameOver30(findMostFollowersOver30())
+findMostFollowersNameOver30(findMostFollowersOver30())
 
 // FIND PEOPLE WHO FOLLOW SOMEONE WHO DOESN'T FOLLOW THEM BACK
 
@@ -240,4 +247,4 @@ function notFollowedBack() {
   console.log(`${people} follow someone who doesn't follow them back`)
 }
 
-// notFollowedBack()
+notFollowedBack()
