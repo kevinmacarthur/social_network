@@ -47,7 +47,7 @@ function findFollower(id) {
   }
 }
 
-function findFollowerNames(id) {
+function findFollowsName(id) {
   let followerNames = []
   for (let person in data) {
     if (person === id) {
@@ -73,32 +73,32 @@ function findFollowedBy(id) {
 
 function printAllFollowers() {
   for (let person in data) {
-    console.log(`${data[person].name} follows ${findFollowerNames(person)} AND is followed by: ${findFollowedBy(person)}`)
+    console.log(`${data[person].name} follows ${findFollowsName(person)} AND is followed by: ${findFollowedBy(person)}`)
   }
 }
 
 // printAllFollowers()
 
-function findMostFollows() {
+function followsMostPeople() {
   let mostFollows = 0
   for (let person in data) {
-    if (findFollowerNames(person).length > mostFollows) {
+    if (findFollowsName(person).length > mostFollows) {
       mostFollows = data[person].follows.length
     }
   }
   return mostFollows
 }
 
-function findMostFollowsName(num) {
+function followsMostPeopleName(num) {
   let mostFollowers = []
   for (let person in data) {
-    if (findFollowerNames(person).length === num) {
+    if (findFollowsName(person).length === num) {
       mostFollowers.push(data[person].name)
     }
   }
   console.log(`${mostFollowers} have the most followers (${num})`)
 }
-// findMostFollowsName(findMostFollows())
+// followsMostPeopleName(followsMostPeople())
 
 function findMostFollowers() {
   let mostFollowers = 0
@@ -122,6 +122,7 @@ function findMostFollowersName(num) {
 
 // findMostFollowersName(findMostFollowers())
 
+//OVER 30 CLEAN THIS UP
 function findFollowsOver30(id) {
   let followerNames = []
   for (let person in data) {
@@ -135,7 +136,6 @@ function findFollowsOver30(id) {
   return followerNames
 }
 
-//OVER 30 CLEAN THIS UP
 function findFollowedByOver30(id) {
   let followedBy = []
   for (let person in data) {
@@ -148,7 +148,7 @@ function findFollowedByOver30(id) {
   return followedBy
 }
 
-function findMostFollowsOver30() {
+function followsMostPeopleOver30() {
   let mostFollows = 0
   for (let person in data) {
     if (findFollowsOver30(person).length > mostFollows) {
@@ -158,7 +158,7 @@ function findMostFollowsOver30() {
   return mostFollows
 }
 
-function findMostFollowsNameOver30(num) {
+function followsMostPeopleNameOver30(num) {
   let mostFollowers = []
   for (let person in data) {
     if (findFollowsOver30(person).length === num) {
@@ -168,7 +168,7 @@ function findMostFollowsNameOver30(num) {
   console.log(`${mostFollowers} follow the most people over 30 (${num})`)
 }
 
-// findMostFollowsNameOver30(findMostFollowsOver30())
+// followsMostPeopleNameOver30(followsMostPeopleOver30())
 
 function findMostFollowersOver30() {
   let mostFollowers = 0
@@ -195,7 +195,7 @@ function findMostFollowersNameOver30(num) {
 // FIND PEOPLE WHO FOLLOW SOMEONE WHO DOESN'T FOLLOW THEM BACK
 
 function findNotFollowedBack(id) {
-    let follows = findFollowerNames(id)
+    let follows = findFollowsName(id)
     let followedBy = findFollowedBy(id)
     let followedBack = true
     follows.forEach(name => {
