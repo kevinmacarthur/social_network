@@ -77,6 +77,8 @@ function printAllFollowers() {
   }
 }
 
+// printAllFollowers()
+
 function findMostFollows() {
   let mostFollows = 0
   for (let person in data) {
@@ -189,3 +191,39 @@ function findMostFollowersNameOver30(num) {
 }
 
 // findMostFollowersNameOver30(findMostFollowersOver30())
+
+// FIND PEOPLE WHO FOLLOW SOMEONE WHO DOESN'T FOLLOW THEM BACK
+
+function findNotFollowedBack(id) {
+    let follows = findFollowerNames(id)
+    let followedBy = findFollowedBy(id)
+    let followedBack = true
+    follows.forEach(name => {
+      if (followedBack) {
+        let foundInFollowedBy = false
+        followedBy.forEach(follower => {
+          if (name === follower) {
+            foundInFollowedBy = true
+            return
+          }
+        })
+        if (!foundInFollowedBy) {
+          console.log(`${name} does not follow ${findName(id)} back`)
+          followedBack = false
+        }
+      }
+    })
+  return followedBack
+}
+
+function notFollowedBack() {
+  let people = []
+  for (let person in data) {
+    if (!findNotFollowedBack(person)) {
+      people.push(data[person].name)
+    }
+  }
+  console.log(`${people} follow someone who doesn't follow them back`)
+}
+
+notFollowedBack()
